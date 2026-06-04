@@ -22,8 +22,12 @@ st.set_page_config(page_title="表面肌电手势意图识别系统", layout="wi
 @st.cache_data
 def load_all_data(subject_file):
     # return load_subject_data(subject_file)
-    # 显式指定 base_path 为我们新建的演示数据文件夹
-    return load_subject_data(subject_file, base_path='../demo_data/')
+    # 动态获取当前 app.py 所在的目录 (v3文件夹)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # 动态拼接出上一级的 demo_data 文件夹绝对路径
+    absolute_data_path = os.path.abspath(os.path.join(current_dir, '..', 'demo_data'))
+
+    return load_subject_data(subject_file, base_path=absolute_data_path)
 
 
 @st.cache_resource
@@ -50,13 +54,18 @@ st.divider()
 # --- 4. 左侧控制面板 ---
 with st.sidebar:
     st.header("⚙️ 实验控制台")
-    # data_dir = '../sEMG-signal-classification-master/sEMG-signal-classification-master/data/Database 1/'
-    # 修改为指向根目录下的 demo_data 文件夹
-    data_dir = '../demo_data/'
+
+    # 动态获取并拼接绝对路径
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.abspath(os.path.join(current_dir, '..', 'demo_data'))
+
     try:
         available_subjects = [f for f in os.listdir(data_dir) if f.endswith('.mat')]
+        if not available_subjects:
+            st.error("文件夹中没有找到 .mat 文件！")
     except FileNotFoundError:
-        available_subjects = ['female_1.mat']
+        st.error(f"❌ 严重错误：找不到数据目录 {data_dir} ！")
+        available_subjects = []
 
     selected_subject = st.selectbox("1. 选择受试者数据", available_subjects)
 
