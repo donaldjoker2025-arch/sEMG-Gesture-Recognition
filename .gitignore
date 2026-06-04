@@ -1,0 +1,18 @@
+# PyCharm 与系统缓存
+.idea/
+.DS_Store
+
+# Python 编译文件
+__pycache__/
+*.pyc
+
+# Anaconda / 虚拟环境（如果你的环境装在项目文件夹内）
+venv/
+env/
+.conda/
+
+# 拦截所有超大数据集文件（非常关键！）
+*.mat
+
+# 忽略原作者的整个文件夹及其所有内容
+sEMG-signal-classification-master/
