@@ -40,17 +40,26 @@ def load_all_data(subject_file):
     return load_subject_data(subject_file, base_path=absolute_data_path)
 
 
+# @st.cache_resource
+# def get_trained_model():
+#     """初始化一个用于演示的全局模型"""
+#     classifier = GestureClassifier()
+#     # 注意：为了让演示系统跑通，这里用随机数据伪造了一个模型状态
+#     # 在真实工程中，你应该用 V3 代码训练出模型后，用 joblib 保存成文件并在这里加载
+#     fake_X = np.random.rand(100, 6)  # V3 是 6 维特征 (2通道 x 3特征)
+#     fake_y = np.random.randint(0, 4, 100)  # 4 种动作
+#     classifier.train(fake_X, fake_y)
+#     return classifier
+
+import joblib
+
 @st.cache_resource
 def get_trained_model():
-    """初始化一个用于演示的全局模型"""
-    classifier = GestureClassifier()
-    # 注意：为了让演示系统跑通，这里用随机数据伪造了一个模型状态
-    # 在真实工程中，你应该用 V3 代码训练出模型后，用 joblib 保存成文件并在这里加载
-    fake_X = np.random.rand(100, 6)  # V3 是 6 维特征 (2通道 x 3特征)
-    fake_y = np.random.randint(0, 4, 100)  # 4 种动作
-    classifier.train(fake_X, fake_y)
-    return classifier
-
+    # 动态获取模型路径
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(current_dir, 'svm_model_v3.joblib')
+    # 直接加载已经变聪明的真脑子
+    return joblib.load(model_path)
 
 # --- 3. 页面主结构 ---
 st.title("🤖 面向智能假肢的 sEMG 意图识别系统 (V3)")

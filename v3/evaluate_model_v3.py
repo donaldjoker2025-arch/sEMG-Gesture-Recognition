@@ -51,6 +51,11 @@ if __name__ == "__main__":
     y_pred = classifier.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
 
+    import joblib
+
+    # 训练好之后保存模型
+    joblib.dump(classifier, 'svm_model_v3.joblib')
+
     print(f"\n🏆 【V3 突破版】测试集准确率: {accuracy * 100:.2f}%\n")
     print("📊 V3 详细分类报告:")
     print(classification_report(y_test, y_pred, target_names=['Cylindrical', 'Spherical', 'Hook', 'Tip']))
