@@ -5,6 +5,16 @@ import matplotlib.pyplot as plt
 import os
 
 # --- 导入解决中文乱码的代码 ---
+import matplotlib.font_manager as fm
+
+# 动态获取当前脚本所在目录，并拼接字体文件的绝对路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+font_path = os.path.join(current_dir, 'SimHei.ttf')  # 确保这里的文件名和上传的一致
+
+# 将自定义字体强行加载到 matplotlib 的字体库中
+fm.fontManager.addfont(font_path)
+
+# 设置使用该字体
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 
