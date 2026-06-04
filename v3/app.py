@@ -48,7 +48,9 @@ st.divider()
 # --- 4. 左侧控制面板 ---
 with st.sidebar:
     st.header("⚙️ 实验控制台")
-    data_dir = '../sEMG-signal-classification-master/sEMG-signal-classification-master/data/Database 1/'
+    # data_dir = '../sEMG-signal-classification-master/sEMG-signal-classification-master/data/Database 1/'
+    # 修改为指向根目录下的 demo_data 文件夹
+    data_dir = '../demo_data/'
     try:
         available_subjects = [f for f in os.listdir(data_dir) if f.endswith('.mat')]
     except FileNotFoundError:
