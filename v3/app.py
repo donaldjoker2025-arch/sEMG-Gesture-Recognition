@@ -21,7 +21,9 @@ st.set_page_config(page_title="表面肌电手势意图识别系统", layout="wi
 # --- 2. 辅助函数 (缓存以提高性能) ---
 @st.cache_data
 def load_all_data(subject_file):
-    return load_subject_data(subject_file)
+    # return load_subject_data(subject_file)
+    # 显式指定 base_path 为我们新建的演示数据文件夹
+    return load_subject_data(subject_file, base_path='../demo_data/')
 
 
 @st.cache_resource
